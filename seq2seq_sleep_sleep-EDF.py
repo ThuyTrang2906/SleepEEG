@@ -416,6 +416,7 @@ def run_program(hparams,FLAGS):
     # load dataset
     num_folds = FLAGS.num_folds
     data_dir = FLAGS.data_dir
+    print(data_dir)
     if '13' in data_dir:
         data_version = 2013
     else:
@@ -428,6 +429,7 @@ def run_program(hparams,FLAGS):
 
     path, channel_ename = os.path.split(data_dir)
     traindata_dir = os.path.join(os.path.abspath(os.path.join(data_dir, os.pardir)),'traindata/')
+    print(traindata_dir)
     print(str(datetime.now()))
 
     def evaluate_model(hparams, X_test, y_test, classes):
@@ -721,9 +723,9 @@ def main(args=None):
     FLAGS = tf.app.flags.FLAGS
 
     # outputs_eeg_fpz_cz
-    tf.app.flags.DEFINE_string('data_dir', 'data_2013/eeg_fpz_cz',
+    tf.app.flags.DEFINE_string('data_dir', 'edf_78_npz/',
                                """Directory where to load training data_2013.""")
-    tf.app.flags.DEFINE_string('output_dir', 'outputs_2013/outputs_eeg_fpz_cz',
+    tf.app.flags.DEFINE_string('output_dir', 'saved',
                                """Directory where to save trained models """
                                """and outputs.""")
     tf.app.flags.DEFINE_integer('num_folds', 20,

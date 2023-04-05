@@ -107,9 +107,8 @@ class SeqDataLoader(object):
             if ".npz" in f:
                 npzfiles.append(os.path.join(self.data_dir, f))
         npzfiles.sort()
-
-        if n_files is not None:
-            npzfiles = npzfiles[:n_files]
+        # if n_files is not None:
+        #     npzfiles = npzfiles[:n_files]
 
         # subject_files = []
         # for idx, f in enumerate(allfiles):
@@ -121,22 +120,21 @@ class SeqDataLoader(object):
         #         subject_files.append(os.path.join(self.data_dir, f))
 
         # randomize the order of the file names just for one time!
-        r_permute = np.random.permutation(len(npzfiles))
-        filename = "r_permute.npz"
-        if (os.path.isfile(filename)):
-            with np.load(filename) as f:
-                r_permute = f["inds"]
-        else:
-            save_dict = {
-                "inds": r_permute,
+        # r_permute = np.random.permutation(len(npzfiles))
+        # filename = "r_permute.npz"
+        # if (os.path.isfile(filename)):
+        #     with np.load(filename) as f:
+        #         r_permute = f["inds"]
+        # else:
+        #     save_dict = {
+        #         "inds": r_permute,
 
-            }
-            np.savez(filename, **save_dict)
-
-        npzfiles = np.asarray(npzfiles)[r_permute]
+        #     }
+        #     np.savez(filename, **save_dict)
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: ",npzfiles)
+        # npzfiles = np.asarray(npzfiles)[r_permute]
         train_files = np.array_split(npzfiles, self.n_folds)
         subject_files = train_files[self.fold_idx]
-
 
         train_files = list(set(npzfiles) - set(subject_files))
         # train_files.sort()
@@ -146,6 +144,8 @@ class SeqDataLoader(object):
         print ("\n========== [Fold-{}] ==========\n".format(self.fold_idx))
         print ("Load training set:")
         data_train, label_train = self._load_npz_list_files(train_files)
+        print("data train: ")
+        print(data_train)
         print (" ")
         print ("Load Test set:")
         data_test, label_test = self._load_npz_list_files(subject_files)
@@ -154,7 +154,7 @@ class SeqDataLoader(object):
         print ("Training set: n_subjects={}".format(len(data_train)))
         n_train_examples = 0
         for d in data_train:
-            print d.shape
+            print(d.shape)
             n_train_examples += d.shape[0]
         print ("Number of examples = {}".format(n_train_examples))
         self.print_n_samples_each_class(np.hstack(label_train),self.classes)
@@ -162,7 +162,7 @@ class SeqDataLoader(object):
         print ("Test set: n_subjects = {}".format(len(data_test)))
         n_test_examples = 0
         for d in data_test:
-            print d.shape
+            print(d.shape)
             n_test_examples += d.shape[0]
         print ("Number of examples = {}".format(n_test_examples))
         self.print_n_samples_each_class(np.hstack(label_test),self.classes)
