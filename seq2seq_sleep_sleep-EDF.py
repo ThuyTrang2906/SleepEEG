@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io as spio
-from  sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import confusion_matrix, f1_score
 import random
 import time

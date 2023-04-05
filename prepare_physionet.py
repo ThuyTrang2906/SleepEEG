@@ -10,7 +10,7 @@ import ntpath
 import os
 import shutil
 import urllib
-import urllib2
+import urllib3
 
 from datetime import datetime
 
@@ -65,7 +65,7 @@ EPOCH_SEC_SIZE = 30
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", type=str, default="data_2013/",
+    parser.add_argument("--data_dir", type=str, default="edf_78_npz/",
                         help="File path to the CSV or NPY file that contains walking data.")
     parser.add_argument("--output_dir", type=str, default="data_2013/eeg_fpz_cz",
                         help="Directory where to save outputs.")
